@@ -42,3 +42,26 @@ def get_tweets_df():
     df["date"] = dates
     df["tweets"] = num_tweets
     return df
+
+def get_btc_prices(start, end):
+    if isinstance(start, datetime.datetime):
+        start = start.strftime('%Y-%m-%d')
+    if isinstance(end, datetime.datetime):
+        end = end.strftime('%Y-%m-%d')
+    
+    response = requests.get(f"https://api.coindesk.com/v1/bpi/historical/close.json?start={start}&end={end}")
+    raw = response.json()['bpi']
+    dates = []
+    prices = []
+    for date_str in raw:
+        dates.append(date_str)
+        prices.append(raw[date_str])
+        
+    for i in range(len(dates)):
+        dates[i] = datetime.datetime.strptime(dates[i], "%Y-%m-%d")
+    
+    df = pd.DataFrame()
+    df['date'] = dates
+    df['price'] = prices
+    
+    return df
