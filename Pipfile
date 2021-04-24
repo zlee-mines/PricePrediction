@@ -8,8 +8,14 @@ numpy = "*"
 tensorflow = "*"
 pandas = "*"
 sklearn = "*"
+matplotlib = "*"
+tweepy = "*"
+pytrends = "*"
+bs4 = "*"
 
 [requires]
 python_version = "3.8"
 
 [dev-packages]
+jupyter = "*"
+ipykernel = "*"
